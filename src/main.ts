@@ -31,11 +31,10 @@ import { DEFAULT_MODE, MODES, getMode } from './modes';
 /*
  * Prefixed with Vite's BASE_URL rather than written as a root-absolute path.
  *
- * With `base: '/3D-MAP/'` in vite.config.ts the app is served from a
- * subdirectory, so a leading "/" resolves to the server root — /data/... —
- * which is not where the file is. BASE_URL carries the configured prefix and
- * always ends in a slash, so this stays correct whether base is '/' in dev or
- * a subpath in production.
+ * The app is served from a subdirectory on GitHub Pages, so a leading "/"
+ * would resolve to the server root — /data/... — which is not where the file
+ * is. BASE_URL carries whatever `base` is set to and always ends in a slash,
+ * so this holds for '/' in dev, './' on Pages, or any subpath.
  */
 const BUILDINGS_URL = `${import.meta.env.BASE_URL}data/test_3d_map.geojson`;
 
