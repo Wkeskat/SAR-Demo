@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Building Height Estimation</title>
+
+    <!-- Geospatial Glass typefaces: Space Grotesk for headings and caps
+         labels, Manrope for body and data readouts. -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Manrope:wght@400;600&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="app-header">
+        <h1 class="app-title">Building Height Estimation</h1>
+        <!-- <span class="app-subtitle">SAR · Khon Kaen</span> -->
+      </header>
+
+      <aside class="sidebar">
+        <div class="sidebar-scroll">
+          <!-- ---------- Height filter ---------- -->
+          <section class="control-group">
+            <h2 class="panel-title">Height FILTER</h2>
+            <label class="sr-only" for="height-filter">Minimum height</label>
+            <input
+              id="height-filter"
+              class="slider"
+              type="range"
+              min="0"
+              max="30"
+              step="0.5"
+              value="0"
+            />
+            <div class="control-readout">
+              <span id="height-filter-value">All heights</span>
+              <span id="height-filter-count" class="control-readout-dim"></span>
+            </div>
+          </section>
+
+          <!-- ---------- Layers ---------- -->
+          <section class="control-group">
+            <h2 class="panel-title">Layers</h2>
+
+            <label class="check">
+              <input id="layer-buildings" type="checkbox" checked />
+              <span>Buildings</span>
+            </label>
+
+            <!-- <label class="check is-disabled">
+              <input id="layer-sar" type="checkbox" disabled />
+              <span>SAR imagery</span>
+              <span class="check-note">no file</span>
+            </label> -->
+
+            <h3 class="control-subtitle">Colour by</h3>
+            <div id="colour-radios" class="radio-list"></div>
+          </section>
+
+          <!-- ---------- Legend ---------- -->
+          <section id="legend" class="control-group" hidden>
+            <h2 id="legend-title" class="panel-title">Height</h2>
+            <div id="legend-items"></div>
+          </section>
+
+          <!-- ---------- Statistics ---------- -->
+          <section class="control-group">
+            <h2 class="panel-title">Statistics</h2>
+            <dl id="stats" class="stats"></dl>
+          </section>
+        </div>
+      </aside>
+
+      <main class="map-area">
+        <div id="cesiumContainer"></div>
+
+        <!-- 2D / 3D switcher, populated by main.ts -->
+        <div id="layers" class="panel dimensions" hidden>
+          <div id="layer-buttons" class="mode-buttons"></div>
+        </div>
+
+        <!-- Hidden: colour selection lives in the sidebar now. Kept so
+             setupModeSwitcher has its mount point if it is re-enabled. -->
+        <div id="modes" class="panel modes" hidden>
+          <div class="panel-title">Colour by</div>
+          <div id="mode-buttons" class="mode-buttons"></div>
+        </div>
+
+        <!-- Attribute panel, populated by interaction.ts -->
+        <aside id="info" class="panel info" hidden>
+          <button id="info-close" class="info-close" aria-label="Close">&times;</button>
+          <div class="panel-title">Building</div>
+          <table id="info-table"></table>
+        </aside>
+
+        <!-- Load status / errors -->
+        <div id="status" class="status" role="status"></div>
+      </main>
+
+      <footer class="app-footer">
+        <span id="footer-hint">Click a building to inspect its AI prediction</span>
+      </footer>
+    </div>
+
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>
